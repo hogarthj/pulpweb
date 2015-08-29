@@ -15,7 +15,7 @@
     <div class="col-md-10">
       <!--Body content-->
       <ul class="Repos">
-        <li ng-repeat="repo in repos | filter:query | filter: { enabled: repoEnabled } : includeDisabled | orderBy : orderRepo : orderRev" 
+        <li ng-repeat="repo in repos | filter:{ id: query} | filter: { enabled: repoEnabled } : includeDisabled | orderBy : orderRepo : orderRev" 
             class="thumbnail repo-listing">
           <a href="#/repos/{{repo.id}}">{{repo.display_name}}</a>
           <p>Number of packages: {{ repo.numpkg }} </p>
