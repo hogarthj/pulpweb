@@ -1,0 +1,27 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <!--Sidebar content-->
+
+      <p>Search: <input ng-model="query">
+      <p>Sort by: <select  ng-model="orderRepo">
+               <option value="id">Repo ID</option>
+               <option value="numpkg">Number of packages</option>
+               </select>
+      <p>Reverse order: <input type="checkbox" ng-model="orderRev">
+      <p>Include disabled: <input type="checkbox" ng-model="repoEnabled" checked>
+    </div>
+    <div class="col-md-10">
+      <!--Body content-->
+      <ul class="Repos">
+        <li ng-repeat="repo in repos | filter:query | filter: { enabled: repoEnabled } : includeDisabled | orderBy : orderRepo : orderRev" 
+            class="thumbnail repo-listing">
+          <a href="#/repos/{{repo.id}}">{{repo.display_name}}</a>
+          <p>Number of packages: {{ repo.numpkg }} </p>
+          <p>Pulp path: <a ng-href="http://ld4repo02.ld4.lmax/pulp/repos/{{repo.distributors[0].config.relative_url}}">http://ld4repo02.ld4.lmax/pulp/repos/{{repo.distributors[0].config.relative_url}}</a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</div>
