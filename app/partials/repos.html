@@ -3,11 +3,12 @@
     <div class="col-md-2">
       <!--Sidebar content-->
 
-      <p>Search: <input ng-model="query">
+      <p>Search id: <input ng-model="query">
       <p>Sort by: <select  ng-model="orderRepo">
                <option value="id">Repo ID</option>
                <option value="numpkg">Number of packages</option>
                <option value="last_published">Last published</option>
+               <option value="last_sync">Last synchronise</option>
                </select>
       <p>Reverse order: <input type="checkbox" ng-model="orderRev">
       <p>Include disabled: <input type="checkbox" ng-model="repoEnabled">
