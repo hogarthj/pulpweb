@@ -7,6 +7,7 @@
       <p>Sort by: <select  ng-model="orderRepo">
                <option value="id">Repo ID</option>
                <option value="numpkg">Number of packages</option>
+               <option value="last_published">Last published</option>
                </select>
       <p>Reverse order: <input type="checkbox" ng-model="orderRev">
       <p>Include disabled: <input type="checkbox" ng-model="repoEnabled" checked>
@@ -18,6 +19,7 @@
             class="thumbnail repo-listing">
           <a href="#/repos/{{repo.id}}">{{repo.display_name}}</a>
           <p>Number of packages: {{ repo.numpkg }} </p>
+          <p>Last published: {{ repo.last_published }}</p>
           <p>Pulp path: <a ng-href="http://ld4repo02.ld4.lmax/pulp/repos/{{repo.distributors[0].config.relative_url}}">http://ld4repo02.ld4.lmax/pulp/repos/{{repo.distributors[0].config.relative_url}}</a>
         </li>
       </ul>

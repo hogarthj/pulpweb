@@ -16,6 +16,7 @@ pulpWebControllers.controller('ReposCtrl', ['$scope', 'Repos',
         if (repo.distributors[i].config.http) { 
           repo.enabled = true ; 
         }
+        repo.last_published = repo.distributors[i].last_publish;
       }
     }
     this.push(repo);

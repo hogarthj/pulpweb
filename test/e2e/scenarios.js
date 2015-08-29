@@ -34,7 +34,7 @@ describe('Pulp Web App', function() {
       expect(reposList.count()).toBeLessThan(initialCount);
     });
 
-    it('should change the order on request', function() {
+    it('should sort by number of packages request', function() {
       var reposList = element.all(by.repeater('repo in repos')).first().all(by.binding('numpkg'));
       var ordering = element(by.model('orderRepo'));
       var query = element(by.model('query'));
@@ -48,6 +48,22 @@ describe('Pulp Web App', function() {
 
        
     });
+
+      it('should sort by last published', function() {
+      var reposList = element.all(by.repeater('repo in repos')).first().all(by.binding('numpkg'));
+      var ordering = element(by.model('orderRepo'));
+      var query = element(by.model('query'));
+
+      query.sendKeys('puppet');
+      expect(reposList.first().getText()).toContain('131');
+
+      element(by.model('orderRepo')).element(by.css('option[value="last_published"]')).click();
+
+      expect(reposList.first().getText()).toContain('503');
+
+       
+    });
+
 
    it('should reverse the order when directed', function() {
 
@@ -84,6 +100,10 @@ describe('Pulp Web App', function() {
 
     });
 
-
+    it('should show last published date', function() {
+      var reposList = element.all(by.repeater('repo in repos')).first().all(by.binding('last_published'));
+      expect(reposList.first().getText()).toNotBe('');
+  
+    });
   });
 });
