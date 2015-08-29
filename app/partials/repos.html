@@ -18,6 +18,7 @@
         <li ng-repeat="repo in repos | filter:{ id: query} | filter: { enabled: repoEnabled } : includeDisabled | orderBy : orderRepo : orderRev" 
             class="thumbnail repo-listing">
           <a href="#/repos/{{repo.id}}">{{repo.display_name}}</a>
+          <p ng-if="repoEnabled==true">Repo enabled: {{ repo.enabled }}</p>
           <p>Number of packages: {{ repo.numpkg }} </p>
           <p>Last published: {{ repo.last_published }}</p>
           <p ng-if="repo.last_sync">Last synchronise: {{ repo.last_sync }}</p>

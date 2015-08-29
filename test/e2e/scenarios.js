@@ -121,5 +121,14 @@ describe('Pulp Web App', function() {
       expect(repoList.all(by.binding('last_sync')).count()).toBe(0);
       expect(repoList.all(by.binding('feed_url')).count()).toBe(0);;
     });
+
+    it('should display repo enable state if displaying both enabled and disabled repos', function() {
+      var repoList = element.all(by.repeater('repo in repos')).first();
+ 
+      expect(repoList.all(by.binding('enabled')).count()).toBe(0);
+      element(by.model('repoEnabled')).click();
+      expect(repoList.all(by.binding('enabled')).count()).toBe(1);
+
+    });
   });
 });
