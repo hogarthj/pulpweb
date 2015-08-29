@@ -19,6 +19,14 @@ pulpWebControllers.controller('ReposCtrl', ['$scope', 'Repos',
         repo.last_published = repo.distributors[i].last_publish;
       }
     }
+    if (typeof(repo.importers) != 'undefined') {
+      for (var i = 0; i < repo.importers.length; i++) {
+        if (repo.importers[i].importer_type_id == "yum_importer") {
+          repo.last_sync = repo.importers[i].last_sync;
+          repo.feed_url = repo.importers[i].config.feed_url;
+        }
+      }
+    }
     this.push(repo);
     }, repoList);
     }); 

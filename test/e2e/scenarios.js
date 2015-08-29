@@ -105,5 +105,21 @@ describe('Pulp Web App', function() {
       expect(reposList.first().getText()).toNotBe('');
   
     });
+
+    it('should show last sync and feed_url for upstream sources', function() {
+      var repoList = element.all(by.repeater('repo in repos')).first();
+      var query = element(by.model('query'));
+      query.sendKeys('-upstream');
+      expect(repoList.all(by.binding('last_sync')).first().getText()).toNotBe('');
+      expect(repoList.all(by.binding('feed_url')).first().getAttribute('href')).toNotBe('');
+    });
+
+    it('should not show last sync or feed_url for non-upstream sources', function() {
+      var repoList = element.all(by.repeater('repo in repos')).first();
+      var query = element(by.model('query'));
+      query.sendKeys('-stable');
+      expect(repoList.all(by.binding('last_sync')).count()).toBe(0);
+      expect(repoList.all(by.binding('feed_url')).count()).toBe(0);;
+    });
   });
 });

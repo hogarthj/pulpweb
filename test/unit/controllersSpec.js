@@ -20,7 +20,7 @@ describe('pulpWeb controllers', function() {
     beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
       $httpBackend = _$httpBackend_;
       $httpBackend.expectGET('mockData/repos.json').
-          respond([{"display_name": 'mock repo 1', "content_unit_counts": { "rpm": 12 }, "id": 'mock-repo-1', "_href": "/pulp/api/v2/repositories/mock-repo-1" , "distributors": [ { "repo_id": "mock-repo-1", "distributor_type_id": "yum_distributor",  "last_publish": "2015-07-22T09:38:14Z", "config": { "http": true, "https": false, "relative_url": "v2/mock-repo-1" } } ]}, {"display_name": 'mock repo 2', "content_unit_counts": { "rpm": 32 }, "id": 'mock-repo-2', "_href": "/pulp/api/v2/repositories/mock-repo-2", "distributors": [ { "repo_id": "mock-repo-2", "distributor_type_id": "yum_distributor", "last_publish": "2015-07-23T12:45:33Z", "config": { "http": false, "https": false, "relative_url": "v2/mock-repo-2" } } ]}]);
+          respond([{"display_name": 'mock repo 1', "content_unit_counts": { "rpm": 12 }, "id": 'mock-repo-1', "_href": "/pulp/api/v2/repositories/mock-repo-1" , "distributors": [ { "repo_id": "mock-repo-1", "distributor_type_id": "yum_distributor",  "last_publish": "2015-07-22T09:38:14Z", "config": { "http": true, "https": false, "relative_url": "v2/mock-repo-1" } } ], "importers": [{ "importer_type_id": "yum_importer", "config": { "feed_url": "http://www.example.com/fack/feed"}, "last_sync": "2013-06-18T10:20:33Z" }]}, {"display_name": 'mock repo 2', "content_unit_counts": { "rpm": 32 }, "id": 'mock-repo-2', "_href": "/pulp/api/v2/repositories/mock-repo-2", "distributors": [ { "repo_id": "mock-repo-2", "distributor_type_id": "yum_distributor", "last_publish": "2015-07-23T12:45:33Z", "config": { "http": false, "https": false, "relative_url": "v2/mock-repo-2" } } ]}]);
 
       scope = $rootScope.$new();
       ctrl = $controller('ReposCtrl', {$scope: scope});
@@ -43,6 +43,10 @@ describe('pulpWeb controllers', function() {
       expect(scope.repos[0].enabled).toEqual(true);
       expect(scope.repos[1].enabled).toEqual(false);
       expect(scope.repos[0].last_published).toEqual(scope.repos[0].distributors[0].last_publish);
+      expect(scope.repos[0].last_sync).toEqual(scope.repos[0].importers[0].last_sync);
+      expect(scope.repos[0].feed_url).toEqual('http://www.example.com/fack/feed');
+      expect(scope.repos[1].last_sync).toBeUndefined;
+      expect(scope.repos[1].feed_url).toBeUndefined;
     });
 
     it('should set the default value of ordering', function() {
